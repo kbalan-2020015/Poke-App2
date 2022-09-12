@@ -38,21 +38,15 @@ const Main = () => {
 
     return (
         <>
-            <main className='main'>
-                <div className="cards container">
-                    <h1 className='title'>Pokemons</h1>
+            <section className="container">
+                <h1 className='title'>Pokemons</h1>
 
-                    <div className= "cards__container">
-                        <section className="card__info">
-                            <Card pokemon={pokemonData} loading={loading} infoPokemon={pokemon => setPokeDex(pokemon)}/>
-                        </section>
-
-                        <section className="card__info">
-                            <PokeInfo data={pokeDex}/>
-                        </section>
-                    </div>
+                <div className="card__info">
+                    <Card pokemon={pokemonData} loading={loading} infoPokemon={pokemon => setPokeDex(pokemon)}/>
                 </div>
-            </main>
+            </section>
+            
+            <PokeInfo data={pokeDex}/>
         </>
     );
 }
