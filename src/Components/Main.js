@@ -6,9 +6,13 @@ import axios from "axios";
 const Main = () => {
     const [pokemonData, setPokemonData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [url] = useState('https://pokeapi.co/api/v2/pokemon');
-    const [pokeDex, setPokeDex] = useState();
+    const url = 'https://pokeapi.co/api/v2/pokemon';
+    const [pokeDex, setPokeDex] = useState([]);
 
+    useEffect( () => {
+        getData();
+    }, [])
+    
     const getData = async () => {
         try{
             setLoading(true);
@@ -32,9 +36,7 @@ const Main = () => {
         });
     }
 
-    useEffect( () => {
-        getData();
-    }, [])
+    
 
     return (
         <>
