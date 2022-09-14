@@ -10,20 +10,22 @@ const Main = () => {
     const [pokeDex, setPokeDex] = useState([]);
 
     useEffect( () => {
+        const getData = async () => {
+            try{
+                setLoading(true);
+                const res = await axios.get(url);
+                getPokemon(res.data.results);
+                setLoading(false);
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+        
         getData();
     }, [])
+
     
-    const getData = async () => {
-        try{
-            setLoading(true);
-            const res = await axios.get(url);
-            getPokemon(res.data.results);
-            setLoading(false);
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
 
     const getPokemon = async (res) => {
         res.map( async (item) => {
