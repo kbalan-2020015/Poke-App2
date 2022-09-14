@@ -7,7 +7,7 @@ const Main = () => {
     const [pokemonData, setPokemonData] = useState([]);
     const [loading, setLoading] = useState(true);
     const url = 'https://pokeapi.co/api/v2/pokemon';
-    const [pokeDex, setPokeDex] = useState([]);
+    const [pokeDex, setPokeDex] = useState({});
 
     useEffect( () => {
         const getData = async () => {
@@ -21,11 +21,11 @@ const Main = () => {
                 console.log(error);
             }
         }
-        
+
         getData();
     }, [])
 
-    
+    console.log(pokeDex);
 
     const getPokemon = async (res) => {
         res.map( async (item) => {
@@ -38,7 +38,10 @@ const Main = () => {
         });
     }
 
-    
+    const infoPokemon = (pokemon) => {
+        // console.log(pokemon);
+        setPokeDex(pokemon);
+    }
 
     return (
         <>
@@ -46,11 +49,14 @@ const Main = () => {
                 <h1 className='title'>Pokemons</h1>
 
                 <div className="card__info">
-                    <Card pokemon={pokemonData} loading={loading} infoPokemon={pokemon => setPokeDex(pokemon)}/>
+                    <Card pokemon={pokemonData} loading={loading} infoPokemon={infoPokemon}/>
                 </div>
             </section>
             
-            <PokeInfo data={pokeDex}/>
+            {
+                pokeDex && pokeDex.abilities &&
+                <PokeInfo data={pokeDex}/>
+            }
         </>
     );
 }

@@ -1,7 +1,6 @@
 import React from "react";
 
 const PokeInfo = ({ data }) => {
-    // console.log(data);
     return (
         <>
             {
