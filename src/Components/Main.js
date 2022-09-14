@@ -34,7 +34,7 @@ const Main = () => {
 
     useEffect( () => {
         getData();
-    }, []);
+    }, [])
 
     return (
         <>
