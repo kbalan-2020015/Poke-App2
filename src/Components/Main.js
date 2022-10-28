@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import PokeInfo from "./PokeInfo";
+import Navbar from "./Navbar";
 import axios from "axios";
 
 const Main = () => {
     const [pokemonData, setPokemonData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const url = 'https://pokeapi.co/api/v2/pokemon';
+    const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon');
+    const [nextUrl, setNextUrl] = useState({});
+    const [prevUrl, setPrevUrl] = useState({});
     const [pokeDex, setPokeDex] = useState({});
 
-    useEffect( () => {
-        const getData = async () => {
-            try{
-                setLoading(true);
-                const res = await axios.get(url);
-                getPokemon(res.data.results);
-                setLoading(false);
-            }
-            catch(error){
-                console.log(error);
-            }
+    const getData = async () => {
+        try{
+            setLoading(true);
+            const res = await axios.get(url);
+            setNextUrl(res.data.next);
+            setPrevUrl(res.data.previous);
+            getPokemon(res.data.results);
+            setLoading(false);
         }
+        catch(error){
+            console.log(error);
+        }
+    }
 
+    useEffect(() => {
         getData();
-    }, [])
-
-    console.log(pokeDex);
+    }, [url]);
 
     const getPokemon = async (res) => {
         res.map( async (item) => {
@@ -38,18 +41,45 @@ const Main = () => {
         });
     }
 
-    const infoPokemon = (pokemon) => {
-        // console.log(pokemon);
-        setPokeDex(pokemon);
-    }
-
     return (
         <>
+            <section className="nav">
+                <Navbar/>
+            </section>
+
             <section className="container">
-                <h1 className='title'>Pokemons</h1>
+                <h1 className='title'>Welcome to the PokeAPI</h1>
+
+                <div className="card__buttons">
+                    {
+                        prevUrl && <button onClick={() => {
+                            setUrl(prevUrl);
+                        }}>Previous</button>
+                    }
+
+                    {
+                        nextUrl && <button onClick={() => {
+                            setUrl(nextUrl);
+                        }}>Next</button>
+                    }
+                </div>
 
                 <div className="card__info">
-                    <Card pokemon={pokemonData} loading={loading} infoPokemon={infoPokemon}/>
+                    <Card pokemon={pokemonData} loading={loading} infoPokemon={poke => setPokeDex(poke)}/>
+                </div>
+
+                <div className="card__buttons">
+                    {
+                        prevUrl && <button onClick={() => {
+                            setUrl(prevUrl);
+                        }}>Previous</button>
+                    }
+
+                    {
+                        nextUrl && <button onClick={() => {
+                            setUrl(nextUrl);
+                        }}>Next</button>
+                    }
                 </div>
             </section>
             
