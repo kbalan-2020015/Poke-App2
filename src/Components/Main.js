@@ -2,7 +2,20 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import PokeInfo from "./PokeInfo";
 import Navbar from "./Navbar";
+import Search from "./Search";
 import axios from "axios";
+
+export const searchPokemon = async(pokemon) => {
+    try{
+        let urlSearch = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+        const response = await fetch(urlSearch);
+        const data = await response.json();
+        return data;
+    }
+    catch(err){
+        return err;
+    }
+}
 
 const Main = () => {
     const [pokemonData, setPokemonData] = useState([]);
@@ -49,6 +62,8 @@ const Main = () => {
 
             <section className="container">
                 <h1 className='title'>Welcome to the PokeAPI</h1>
+
+                <Search/>
 
                 <div className="card__buttons">
                     {

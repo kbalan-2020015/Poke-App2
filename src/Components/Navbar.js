@@ -7,7 +7,7 @@ const Navbar = () => {
         <nav>
             <img src={imgUrl} className="nav__img" alt="PokeAPI-logo"/>
         </nav>
-    )
+    );
 }
 
 export default Navbar;
