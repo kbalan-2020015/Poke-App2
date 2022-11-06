@@ -41,6 +41,7 @@ const Main = () => {
 
     useEffect(() => {
         getData();
+        // eslint-disable-next-line
     }, [url]);
 
     const getPokemon = async (res) => {
