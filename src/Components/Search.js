@@ -3,13 +3,13 @@ import { searchPokemon } from "./Main";
 
 const Search = () => {
     const [search, setSearch] = useState('');
-    const [pokemon, setPokemon] = useState();
+    const [setPokemon] = useState();
 
     const onChange = (e) => {
         setSearch(e.target.value);
     }
 
-    const onClick = async(e) => {
+    const onClick = async() => {
         const data = await searchPokemon(search);
         setPokemon(data);
     }
